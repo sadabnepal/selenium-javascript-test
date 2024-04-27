@@ -11,7 +11,7 @@ describe('login feature', () => {
     let driver: WebDriver;
 
     beforeEach('invoke browser', async () => {
-        driver = await initializeDriver('chrome');
+        driver = await initializeDriver();
     });
 
     afterEach('close browser', async () => {
