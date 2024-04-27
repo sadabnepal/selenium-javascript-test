@@ -6,7 +6,7 @@ import { PageLoadStrategy } from 'selenium-webdriver/lib/capabilities';
 import { Builder, WebDriver, Browser } from 'selenium-webdriver';
 import { BrowserType } from 'tests/types/driver';
 
-export const getBrowserDriver = async (browserName: BrowserType): Promise<WebDriver> => {
+export const initializeDriver = async (browserName: BrowserType): Promise<WebDriver> => {
     let driver: WebDriver;
 
     if (browserName === 'chrome') {
@@ -39,3 +39,9 @@ export const getBrowserDriver = async (browserName: BrowserType): Promise<WebDri
     await driver.manage().window().maximize();
     return driver;
 };
+
+export const quiteDriver = async (driver: WebDriver) => {
+    if (!!driver) {
+        await driver.quit();
+    }
+}
