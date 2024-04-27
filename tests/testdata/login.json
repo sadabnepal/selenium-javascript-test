@@ -5,6 +5,6 @@
     },
     "invalid": {
         "username": "wrongUser",
-        "password": "wrongPassword"
+        "password": "wrongUser"
     }
 }

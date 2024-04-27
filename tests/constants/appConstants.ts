@@ -4,4 +4,4 @@ export const APP_CONSTANTS = {
     DASHBOARD_PAGE_TITLE: 'Dashboard • Vendure',
     DASHBOARD_PAGE_HEADER: 'Dashboard',
     INVALID_LOGIN_ERROR: 'The provided credentials are invalid'
-}
+};

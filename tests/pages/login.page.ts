@@ -1,5 +1,4 @@
 import { By, WebDriver, until } from 'selenium-webdriver';
-import { ENV } from 'tests/env/manager';
 export class LoginPage {
 
     constructor(private driver: WebDriver) {
@@ -7,11 +6,11 @@ export class LoginPage {
     }
 
     private get header() { return By.className('login-title') }
-    private get usernameInput() { return By.id('login_username'); }
-    private get passwordInput() { return By.id('login_password'); }
-    private get loginButton() { return By.xpath('//button[contains(@class, "login-button")]'); }
-    private get loginError() { return By.xpath('//*[@class="login-error visible"]'); }
-    private get alertText() { return By.className('alert-text'); }
+    private get usernameInput() { return By.id('login_username') }
+    private get passwordInput() { return By.id('login_password') }
+    private get loginButton() { return By.xpath('//button[contains(@class, "login-button")]') }
+    private get loginError() { return By.xpath('//*[@class="login-error visible"]') }
+    private get alertText() { return By.className('alert-text') }
 
     async open(appUrl: string) {
         await this.driver.get(appUrl);
@@ -23,9 +22,9 @@ export class LoginPage {
         return loginPageHeader.trim();
     }
 
-    async login(username: string, password: string) {
-        await this.driver.findElement(this.usernameInput).sendKeys(username);
-        await this.driver.findElement(this.passwordInput).sendKeys(password);
+    async login(data: { username: string, password: string }) {
+        await this.driver.findElement(this.usernameInput).sendKeys(data.username);
+        await this.driver.findElement(this.passwordInput).sendKeys(data.password);
         await this.driver.findElement(this.loginButton).click();
     }
 

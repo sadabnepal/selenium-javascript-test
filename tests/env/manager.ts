@@ -5,4 +5,4 @@ config({ path: join(process.cwd(), 'tests', 'env', `${process.env.ENV || 'dev'}.
 
 export const ENV = {
     APP_URL: process.env.APP_URL as string
-}
+};

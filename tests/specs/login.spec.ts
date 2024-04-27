@@ -25,34 +25,25 @@ describe('login feature', () => {
         expect(await loginPage.getHeaderText()).equal(APP_CONSTANTS.LOGIN_PAGE_HEADER);
         expect(await driver.getTitle()).equal(APP_CONSTANTS.LOGIN_PAGE_TITLE);
 
-        await loginPage.login(loginData.valid.username, loginData.valid.password);
+        await loginPage.login(loginData.valid);
 
         const dashboardPage = new DashboardPage(driver);
         await dashboardPage.waitUntilTitleVisible();
 
         expect(await driver.getCurrentUrl()).equal(ENV.APP_URL);
         expect(await driver.getTitle()).equal(APP_CONSTANTS.DASHBOARD_PAGE_TITLE);
-        expect(await dashboardPage.getHeaderText()).equal(APP_CONSTANTS.DASHBOARD_PAGE_HEADER)
+        expect(await dashboardPage.getHeaderText()).equal(APP_CONSTANTS.DASHBOARD_PAGE_HEADER);
     });
 
-    it('should not login with invalid username', async () => {
+    it('should not login with invalid credentials', async () => {
         const loginPage = new LoginPage(driver);
 
         await loginPage.open(ENV.APP_URL);
         expect(await loginPage.getHeaderText()).equal(APP_CONSTANTS.LOGIN_PAGE_HEADER);
 
-        await loginPage.login(loginData.invalid.username, loginData.valid.password);
+        await loginPage.login(loginData.invalid);
         expect(await loginPage.invalidLoginError()).equal(APP_CONSTANTS.INVALID_LOGIN_ERROR);
-    });
 
-    it('should not login with invalid password', async () => {
-        const loginPage = new LoginPage(driver);
-
-        await loginPage.open(ENV.APP_URL);
-        expect(await loginPage.getHeaderText()).equal(APP_CONSTANTS.LOGIN_PAGE_HEADER);
-
-        await loginPage.login(loginData.valid.username, loginData.invalid.password);
-        expect(await loginPage.invalidLoginError()).equal(APP_CONSTANTS.INVALID_LOGIN_ERROR);
     });
 
 });

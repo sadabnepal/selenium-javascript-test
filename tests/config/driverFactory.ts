@@ -10,7 +10,7 @@ export const initializeDriver = async () => {
 };
 
 export const quiteDriver = async (driver: WebDriver) => {
-    if (!!driver) {
+    if (driver) {
         await driver.quit();
     }
-}
+};
