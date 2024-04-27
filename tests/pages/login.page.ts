@@ -20,7 +20,7 @@ export class LoginPage {
 
     async getHeaderText() {
         const loginPageHeader = await this.driver.findElement(this.header).getText();
-        return loginPageHeader;
+        return loginPageHeader.trim();
     }
 
     async login(username: string, password: string) {
@@ -36,7 +36,8 @@ export class LoginPage {
 
     async invalidLoginError() {
         await this.waitUntilLoginError();
-        return await this.driver.findElement(this.alertText).getText();
+        const errorText = await this.driver.findElement(this.alertText).getText();
+        return errorText.trim();
     }
 
 }
