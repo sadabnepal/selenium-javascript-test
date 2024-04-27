@@ -1,11 +1,14 @@
 import { By, WebDriver, until } from 'selenium-webdriver';
 import { ENV } from 'tests/env/manager';
+export class LoginPage {
 
-class LoginPage {
+    constructor(private driver: WebDriver) {
+        this.driver = driver;
+    }
 
-    async openLoginPage(driver: WebDriver) {
-        await driver.get(ENV.APP_URL);
-        await driver.wait(until.elementLocated(this.header), 10 * 1000, 'failed while waiting for login title');
+    async openLoginPage() {
+        await this.driver.get(ENV.APP_URL);
+        await this.driver.wait(until.elementLocated(this.header), 10 * 1000, 'failed while waiting for login title');
     }
 
     get header() {
@@ -32,10 +35,9 @@ class LoginPage {
         return By.xpath('//*[@class="login-error visible"]');
     }
 
-    async waitUntilLoginError(driver: WebDriver) {
-        await driver.wait(until.elementLocated(this.loginError), 10 * 1000, 'failed while waiting for login error');
-        await driver.wait(until.elementTextContains(driver.findElement(this.alertText), 'invalid'));
+    async waitUntilLoginError() {
+        await this.driver.wait(until.elementLocated(this.loginError), 10 * 1000, 'failed while waiting for login error');
+        await this.driver.wait(until.elementTextContains(this.driver.findElement(this.alertText), 'invalid'));
     }
 
 }
-export default new LoginPage();

@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { WebDriver, until } from 'selenium-webdriver';
+import { WebDriver } from 'selenium-webdriver';
 import { APP_CONSTANTS } from 'tests/constants/appConstants';
 import { ENV } from 'tests/env/manager';
 import { getBrowserDriver } from 'tests/config/driverFactory';
-import dashboardPage from 'tests/pages/dashboard.page';
-import loginPage from 'tests/pages/login.page';
+import { DashboardPage } from 'tests/pages/dashboard.page';
+import { LoginPage } from 'tests/pages/login.page';
 import loginData from 'tests/testdata/login.json';
 
 describe('login feature', () => {
@@ -19,7 +19,8 @@ describe('login feature', () => {
     });
 
     it('should login with valid credentials', async () => {
-        await loginPage.openLoginPage(driver)
+        const loginPage = new LoginPage(driver);
+        await loginPage.openLoginPage();
 
         const loginPageHeader = await driver.findElement(loginPage.header).getText();
 
@@ -30,14 +31,16 @@ describe('login feature', () => {
         await driver.findElement(loginPage.passwordInput).sendKeys(loginData.valid.password);
         await driver.findElement(loginPage.loginButton).click();
 
-        await dashboardPage.waitUntilTitleVisible(driver);
+        const dashboardPage = new DashboardPage(driver);
+        await dashboardPage.waitUntilTitleVisible();
 
         expect(await driver.getCurrentUrl()).equal(ENV.APP_URL);
-        expect(await driver.getTitle()).equal(APP_CONSTANTS.DASHBOARD_PAGE_TITLE)
+        expect(await driver.getTitle()).equal(APP_CONSTANTS.DASHBOARD_PAGE_TITLE);
     });
 
     it('should not login with in valid username', async () => {
-        await loginPage.openLoginPage(driver)
+        const loginPage = new LoginPage(driver);
+        await loginPage.openLoginPage();
 
         const loginPageHeader = await driver.findElement(loginPage.header).getText();
 
@@ -47,13 +50,14 @@ describe('login feature', () => {
         await driver.findElement(loginPage.passwordInput).sendKeys(loginData.valid.password);
         await driver.findElement(loginPage.loginButton).click();
 
-        await loginPage.waitUntilLoginError(driver);
+        await loginPage.waitUntilLoginError();
         const inValidCredentialsAlertText = await driver.findElement(loginPage.alertText).getText();
-        expect(inValidCredentialsAlertText).equal(APP_CONSTANTS.INVALID_LOGIN_ERROR)
+        expect(inValidCredentialsAlertText).equal(APP_CONSTANTS.INVALID_LOGIN_ERROR);
     });
 
     it('should not login with in valid password', async () => {
-        await loginPage.openLoginPage(driver)
+        const loginPage = new LoginPage(driver);
+        await loginPage.openLoginPage();
 
         const loginPageHeader = await driver.findElement(loginPage.header).getText();
 
@@ -63,9 +67,9 @@ describe('login feature', () => {
         await driver.findElement(loginPage.passwordInput).sendKeys(loginData.invalid.password);
         await driver.findElement(loginPage.loginButton).click();
 
-        await loginPage.waitUntilLoginError(driver);
+        await loginPage.waitUntilLoginError();
         const inValidCredentialsAlertText = await driver.findElement(loginPage.alertText).getText();
-        expect(inValidCredentialsAlertText).equal('APP_CONSTANTS.INVALID_LOGIN_ERROR')
+        expect(inValidCredentialsAlertText).equal(APP_CONSTANTS.INVALID_LOGIN_ERROR);
     });
 
 });
