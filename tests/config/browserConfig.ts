@@ -31,19 +31,16 @@ const getEdgeInstance = async () => {
 }
 
 export const getBrowserInstance = async (browserName: BrowserType) => {
-    if (browserName === 'chrome') {
-        return await getChromeInstance();
+    switch (browserName) {
+        case 'chrome':
+            return await getChromeInstance();
+        case 'firefox':
+            return await getFirefoxInstance();
+        case 'safari':
+            return await getSafariInstance();
+        case 'edge':
+            return await getEdgeInstance();
+        default:
+            return await getChromeInstance();
     }
-    else if (browserName === 'firefox') {
-        return await getFirefoxInstance();
-    }
-    else if (browserName === 'safari') {
-        return await getSafariInstance();
-    }
-    else if (browserName === 'edge') {
-        return await getEdgeInstance();
-    }
-    else {
-        return await getChromeInstance();
-    };
 }
