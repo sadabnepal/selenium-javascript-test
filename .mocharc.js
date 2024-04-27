@@ -23,8 +23,8 @@ module.exports = {
         'showSkipped=true',
         'showHooks=failed'
     ],
-    require: ['ts-node/register, tsconfig-paths/register'],
-    parallel: false,
+    require: ['ts-node/register, tsconfig-paths/register', 'mochawesome/register'],
+    parallel: true,
     recursive: false,
     retries: 0,
     sort: false,
