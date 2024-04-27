@@ -28,3 +28,15 @@ npm run test
 
 Sample Report
 ![SampleReport](./assets/report.png)
+
+### learning references:
+| topic           | references                                                  |
+|-----------------|-------------------------------------------------------------|
+| selenium        | https://www.npmjs.com/package/selenium-webdriver            |
+| mocha           | https://ricostacruz.com/mocha/                              |
+| mocha config    | https://github.com/mochajs/mocha/tree/master/example/config |
+| chai            | https://www.chaijs.com                                      |
+| report          | https://github.com/adamgruber/mochawesome                   |
+| dotenv          | https://www.npmjs.com/package/dotenv                        |
+| eslint          | https://eslint.org/docs/latest/use/getting-started          |
+| vscode settings | https://code.visualstudio.com/docs/getstarted/settings      |
