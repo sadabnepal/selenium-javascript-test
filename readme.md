@@ -20,14 +20,35 @@ Install packages:
 npm install
 ```
 
+Setup husky:
+
+```bash
+npm run prepare
+```
+
 Run tests:
 
 ```bash
 npm run test
 ```
 
+Lint & fix
+
+```bash
+npm run lint
+npm run lint:fix
+```
+
 Sample Report
 ![SampleReport](./assets/report.png)
+
+### Key Features
+- Custom types for browser
+- Support to run test with all major browser
+- Parallel execution with mocha framework
+- dotenv to support multiple environment
+- eslint linting tools integrated
+- husky git hooks for pre-commit checks (eslint)
 
 ### learning references:
 | topic           | references                                                  |
