@@ -1,0 +1,32 @@
+module.exports = {
+    spec: ['tests/specs/**/*.spec.ts'],
+    package: './package.json',
+    extension: ['.ts'],
+    timeout: 60 * 1000,
+    color: true,
+    grep: '',
+    ignore: [''],
+    reporter: 'mochawesome',
+    'reporter-option': [
+        'consoleReporter=spec',
+        'reportDir=report',
+        'reportFilename=index',
+        'reportTitle=Selenium Test Report',
+        'charts=true',
+        'code=true',
+        'inline=true',
+        'autoOpen=false',
+        'timestamp=dd-mm-yyyy\'T\'HH-MM-ss',
+        'showPassed=true',
+        'showFailed=true',
+        'showPending=true',
+        'showSkipped=true',
+        'showHooks=failed'
+    ],
+    require: ['ts-node/register, tsconfig-paths/register'],
+    parallel: false,
+    recursive: false,
+    retries: 0,
+    sort: false,
+    ui: 'bdd'
+};
