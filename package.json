@@ -4,7 +4,8 @@
   "description": "selenium js based test automation framework",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "smoke": "mocha --grep '@smoke'"
   },
   "keywords": [
     "Selenium",

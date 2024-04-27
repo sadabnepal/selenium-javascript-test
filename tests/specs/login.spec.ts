@@ -18,7 +18,7 @@ describe('login feature', () => {
         await quiteDriver(driver);
     });
 
-    it('should login with valid credentials', async () => {
+    it('should login with valid credentials @smoke', async () => {
         const loginPage = new LoginPage(driver);
 
         await loginPage.open(ENV.APP_URL);
@@ -35,7 +35,7 @@ describe('login feature', () => {
         expect(await dashboardPage.getHeaderText()).equal(APP_CONSTANTS.DASHBOARD_PAGE_HEADER)
     });
 
-    it('should not login with in valid username', async () => {
+    it('should not login with invalid username', async () => {
         const loginPage = new LoginPage(driver);
 
         await loginPage.open(ENV.APP_URL);
@@ -45,7 +45,7 @@ describe('login feature', () => {
         expect(await loginPage.invalidLoginError()).equal(APP_CONSTANTS.INVALID_LOGIN_ERROR);
     });
 
-    it('should not login with in valid password', async () => {
+    it('should not login with invalid password', async () => {
         const loginPage = new LoginPage(driver);
 
         await loginPage.open(ENV.APP_URL);
