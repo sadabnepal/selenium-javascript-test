@@ -1,7 +1,6 @@
 import { Builder } from 'selenium-webdriver';
 import Chrome from 'selenium-webdriver/chrome';
 import Edge from 'selenium-webdriver/edge';
-import Safari from 'selenium-webdriver/safari';
 import Firefox from 'selenium-webdriver/firefox';
 import { Browser } from 'selenium-webdriver/lib/capabilities';
 import { FRAMEWORK_ENV_CONFIG } from 'tests/helper/envReader';
