@@ -1,1 +1,1 @@
-export type BrowserType = 'chrome' | 'edge' | 'firefox' | 'safari';
+export type BrowserType = 'chrome' | 'edge' | 'firefox';

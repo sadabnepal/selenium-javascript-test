@@ -6,6 +6,10 @@
   "scripts": {
     "test": "mocha",
     "smoke": "mocha --grep '@smoke'",
+    "docker:start": "docker compose -f docker-compose.yml up -d",
+    "docker:start:arm": "docker compose -f docker-compose-arm.yml up -d",
+    "docker:stop": "docker compose -f docker-compose.yml down",
+    "docker:stop:arm": "docker compose -f docker-compose-arm.yml down",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepare": "husky"

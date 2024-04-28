@@ -3,41 +3,64 @@ import Chrome from 'selenium-webdriver/chrome';
 import Edge from 'selenium-webdriver/edge';
 import Safari from 'selenium-webdriver/safari';
 import Firefox from 'selenium-webdriver/firefox';
-import { Browser, PageLoadStrategy } from 'selenium-webdriver/lib/capabilities';
-import { BrowserType } from 'tests/types/driver';
+import { Browser } from 'selenium-webdriver/lib/capabilities';
+import { FRAMEWORK_ENV_CONFIG } from 'tests/helper/envReader';
+
+const REMOTE_GRID_URL = FRAMEWORK_ENV_CONFIG.GRID_URL;
+const RUN_MODE = FRAMEWORK_ENV_CONFIG.RUN_MODE;
+const BROWSER_NAME = FRAMEWORK_ENV_CONFIG.BROWSER;
 
 const getChromeInstance = async () => {
-    const options = new Chrome.Options();
-    options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-    return await new Builder().forBrowser(Browser.CHROME).setChromeOptions(options).build();
+    if (RUN_MODE === 'docker') {
+        return await new Builder()
+            .forBrowser(Browser.CHROME)
+            .usingServer(REMOTE_GRID_URL)
+            .setChromeOptions(new Chrome.Options())
+            .build();
+    } else {
+        return await new Builder()
+            .forBrowser(Browser.CHROME)
+            .setChromeOptions(new Chrome.Options())
+            .build();
+    }
 };
 
 const getFirefoxInstance = async () => {
-    const options = new Firefox.Options();
-    options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-    return await new Builder().forBrowser(Browser.FIREFOX).setFirefoxOptions(options).build();
-};
-
-const getSafariInstance = async () => {
-    const options = new Safari.Options();
-    options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-    return await new Builder().forBrowser(Browser.SAFARI).setSafariOptions(options).build();
+    if (RUN_MODE === 'docker') {
+        return await new Builder()
+            .forBrowser(Browser.FIREFOX)
+            .usingServer(REMOTE_GRID_URL)
+            .setFirefoxOptions(new Firefox.Options())
+            .build();
+    } else {
+        return await new Builder()
+            .forBrowser(Browser.FIREFOX)
+            .setFirefoxOptions(new Firefox.Options())
+            .build();
+    }
 };
 
 const getEdgeInstance = async () => {
-    const options = new Edge.Options();
-    options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-    return await new Builder().forBrowser(Browser.EDGE).setEdgeOptions(options).build();
+    if (RUN_MODE === 'docker') {
+        return await new Builder()
+            .forBrowser(Browser.EDGE)
+            .usingServer(REMOTE_GRID_URL)
+            .setEdgeOptions(new Edge.Options())
+            .build();
+    } else {
+        return await new Builder()
+            .forBrowser(Browser.EDGE)
+            .setEdgeOptions(new Edge.Options())
+            .build();
+    }
 };
 
-export const getBrowserInstance = async (browserName: BrowserType) => {
-    switch (browserName) {
+export const getBrowserInstance = async () => {
+    switch (BROWSER_NAME) {
         case 'chrome':
             return await getChromeInstance();
         case 'firefox':
             return await getFirefoxInstance();
-        case 'safari':
-            return await getSafariInstance();
         case 'edge':
             return await getEdgeInstance();
         default:
