@@ -61,6 +61,10 @@ Sample Report
 - eslint linting tools integrated
 - husky git hooks for pre-commit checks (eslint)
 
+### TODO:
+- Setup selenium grid (hub and node)
+- https://www.selenium.dev/documentation/grid/
+
 ### learning references:
 | topic           | references                                                  |
 |-----------------|-------------------------------------------------------------|

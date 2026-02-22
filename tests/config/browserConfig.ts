@@ -3,33 +3,41 @@ import Chrome from 'selenium-webdriver/chrome';
 import Edge from 'selenium-webdriver/edge';
 import Firefox from 'selenium-webdriver/firefox';
 import { Browser } from 'selenium-webdriver/lib/capabilities';
-import { FRAMEWORK_ENV_CONFIG } from 'tests/helper/envReader';
+import { FRAMEWORK_ENV_CONFIG } from 'tests/env/manager';
 
-const REMOTE_GRID_URL = FRAMEWORK_ENV_CONFIG.GRID_URL;
-const RUN_MODE = FRAMEWORK_ENV_CONFIG.RUN_MODE;
-const BROWSER_NAME = FRAMEWORK_ENV_CONFIG.BROWSER;
+const chromeOptions = new Chrome.Options();
+chromeOptions.addArguments('--disable-notifications');
+chromeOptions.addArguments('--disable-popup-blocking');
+
+const firefoxOptions = new Firefox.Options();
+firefoxOptions.setPreference('dom.webnotifications.enabled', false);
+firefoxOptions.setPreference('dom.push.enabled', false);
+
+const edgeOptions = new Edge.Options();
+edgeOptions.addArguments('--disable-notifications');
+edgeOptions.addArguments('--disable-popup-blocking');
 
 const getChromeInstance = async () => {
-    if (RUN_MODE === 'docker') {
+    if (FRAMEWORK_ENV_CONFIG.RUN_MODE === 'docker') {
         return await new Builder()
             .forBrowser(Browser.CHROME)
-            .usingServer(REMOTE_GRID_URL)
-            .setChromeOptions(new Chrome.Options())
+            .usingServer(FRAMEWORK_ENV_CONFIG.GRID_URL)
+            .setChromeOptions(chromeOptions)
             .build();
     } else {
         return await new Builder()
             .forBrowser(Browser.CHROME)
-            .setChromeOptions(new Chrome.Options())
+            .setChromeOptions(chromeOptions)
             .build();
     }
 };
 
 const getFirefoxInstance = async () => {
-    if (RUN_MODE === 'docker') {
+    if (FRAMEWORK_ENV_CONFIG.RUN_MODE === 'docker') {
         return await new Builder()
             .forBrowser(Browser.FIREFOX)
-            .usingServer(REMOTE_GRID_URL)
-            .setFirefoxOptions(new Firefox.Options())
+            .usingServer(FRAMEWORK_ENV_CONFIG.GRID_URL)
+            .setFirefoxOptions(firefoxOptions)
             .build();
     } else {
         return await new Builder()
@@ -40,22 +48,22 @@ const getFirefoxInstance = async () => {
 };
 
 const getEdgeInstance = async () => {
-    if (RUN_MODE === 'docker') {
+    if (FRAMEWORK_ENV_CONFIG.RUN_MODE === 'docker') {
         return await new Builder()
             .forBrowser(Browser.EDGE)
-            .usingServer(REMOTE_GRID_URL)
-            .setEdgeOptions(new Edge.Options())
+            .usingServer(FRAMEWORK_ENV_CONFIG.GRID_URL)
+            .setEdgeOptions(edgeOptions)
             .build();
     } else {
         return await new Builder()
             .forBrowser(Browser.EDGE)
-            .setEdgeOptions(new Edge.Options())
+            .setEdgeOptions(edgeOptions)
             .build();
     }
 };
 
 export const getBrowserInstance = async () => {
-    switch (BROWSER_NAME) {
+    switch (FRAMEWORK_ENV_CONFIG.BROWSER) {
         case 'chrome':
             return await getChromeInstance();
         case 'firefox':

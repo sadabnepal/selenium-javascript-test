@@ -5,12 +5,11 @@ export class LoginPage {
         this.driver = driver;
     }
 
-    private get header() { return By.className('login-title') }
-    private get usernameInput() { return By.id('login_username') }
-    private get passwordInput() { return By.id('login_password') }
-    private get loginButton() { return By.xpath('//button[contains(@class, "login-button")]') }
-    private get loginError() { return By.xpath('//*[@class="login-error visible"]') }
-    private get alertText() { return By.className('alert-text') }
+    private get header() { return By.className('login_logo') }
+    private get usernameInput() { return By.id('user-name') }
+    private get passwordInput() { return By.id('password') }
+    private get loginButton() { return By.id('login-button') }
+    private get loginError() { return By.xpath('//h3[@data-test="error"]') }
 
     async open(appUrl: string) {
         await this.driver.get(appUrl);
@@ -30,12 +29,11 @@ export class LoginPage {
 
     private async waitUntilLoginError() {
         await this.driver.wait(until.elementLocated(this.loginError), 10 * 1000, 'failed while waiting for login error');
-        await this.driver.wait(until.elementTextContains(this.driver.findElement(this.alertText), 'invalid'));
     }
 
     async invalidLoginError() {
         await this.waitUntilLoginError();
-        const errorText = await this.driver.findElement(this.alertText).getText();
+        const errorText = await this.driver.findElement(this.loginError).getText();
         return errorText.trim();
     }
 
